@@ -4,6 +4,7 @@ import Missile from './components/Missile';
 import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 const initialState = {
+  missileOpacity: 0,
   missileLoc: [8,12],
   speed: 350,
   direction: 'RIGHT',
@@ -41,7 +42,7 @@ class App extends Component {
 
   fire = () => {
     let location = [this.state.topShipLoc[10][0], this.state.topShipLoc[10][1] + 2];
-    this.setState({missileLoc: location});
+    this.setState({missileLoc: location, missileOpacity: 1});
     setInterval(this.fireMissile, 100)
   }
 
@@ -96,7 +97,7 @@ class App extends Component {
      
     // foo, missile just resets to 0,0. should disappear entirely
     if (this.state.missileLoc[1] > 98){
-      this.setState({missileLoc: [0,0]});
+      this.setState({missileLoc: [0,0], missileOpacity: 0});
     }
   }
 
@@ -122,7 +123,7 @@ class App extends Component {
     return(
     <div className='game-board'>
       <Ship shipLoc = {this.state.topShipLoc}/>
-      <Missile missileLocation= {this.state.missileLoc}/>
+      <Missile missileLocation={this.state.missileLoc} opacity={this.state.missileOpacity} />
     </div>
   )}
 }
