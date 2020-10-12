@@ -1,9 +1,9 @@
 import React from 'react';
 
-function TopShip(props){
+function Ship(props){
     return(
         <div>
-            {props.topShipLoc.map((dot, i) => {
+            {props.shipLoc.map((dot, i) => {
                 const style = {
                     left: `${dot[0]}%`,
                     top: `${dot[1]}%`
@@ -18,4 +18,4 @@ function TopShip(props){
     )
 }
 
-export default TopShip;
+export default Ship;
