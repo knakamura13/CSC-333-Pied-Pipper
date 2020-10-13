@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 
-function Ship(props){
+function TopShip(props){
 
     const speed = 150;
 
@@ -49,6 +49,10 @@ function Ship(props){
         }
     }
 
+    const getTopHeadLoc = (currHeadLoc) => {
+        props.getTopHeadLoc(currHeadLoc);
+    }
+
     const setNewDirection = () => {
         if (active) {
             setDirection(props.currDirection);
@@ -85,6 +89,7 @@ function Ship(props){
         }
 
         setShipLoc(location);
+        getTopHeadLoc([shipLoc[10][0], shipLoc[10][1]]);
         checkBounds();
     }
 
@@ -104,4 +109,4 @@ function Ship(props){
     )
 }
 
-export default Ship;
+export default TopShip;

@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 function useKey(key){
+
+    var lastEvent;
+    var heldKeys = {};
+    
     const [pressed, setPressed] = useState(false)
 
     const match = event => key.toLowerCase() === event.key.toLowerCase()
