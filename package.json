@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "supernova_project",
+=======
+  "name": "supernova",
+>>>>>>> e62e4df3fd29ec0e5ebc02c4972bdabfff59bc72
   "version": "0.1.0",
   "private": true,
   "dependencies": {
