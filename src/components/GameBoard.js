@@ -19,7 +19,7 @@ function GameBoard(){
 
     useEffect(() => {
         checkPressTop();
-        // checkPressBot();
+        checkPressBot();
     });
 
     const checkPressTop = () => {
@@ -34,17 +34,17 @@ function GameBoard(){
         }
     }
 
-    // const checkPressBot = () => {
-    //     if (rightPressed){
-    //         setBottomDirection('RIGHT');
-    //     }
-    //     else if(leftPressed){
-    //         setBottomDirection('LEFT');
-    //     }
-    //     if (spacePressed){
-    //         setBotMissileFire(true);
-    //     }
-    // }
+    const checkPressBot = () => {
+        if (rightPressed){
+            setBottomDirection('RIGHT');
+        }
+        else if(leftPressed){
+            setBottomDirection('LEFT');
+        }
+        if (spacePressed){
+            setBotMissileFire(true);
+        }
+    }
 
      // sets the top missile fire to false and ends the trigger
     const topFinishFire = () => {
@@ -73,12 +73,6 @@ function GameBoard(){
                 <BotMissile botFireMissile={botMissileFire} botFinishFire={botFinishFire} botHeadLoc={botHeadLoc}/>
         </div>
     )
-
-    /* seems necessary
-    {rightPressed && (<>
-        <div>Alan</div>
-    </>
-    )}*/
 }
 
 export default GameBoard;
