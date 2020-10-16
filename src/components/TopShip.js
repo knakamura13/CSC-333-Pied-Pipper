@@ -49,8 +49,8 @@ function TopShip(props){
         }
     }
 
-    const getTopHeadLoc = (currHeadLoc) => {
-        props.getTopHeadLoc(currHeadLoc);
+    const getTopHeadLoc = (currTopHeadLoc) => {
+        props.getTopHeadLoc(currTopHeadLoc);
     }
 
     const setNewDirection = () => {

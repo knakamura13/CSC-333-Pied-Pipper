@@ -9,8 +9,9 @@ function TopMissile(props){
 
 
     useEffect(() => {
+        checkFire();
+        
         const interval = setInterval(() => {
-            checkFire();
             moveMissile();
             checkEndFire();
         }, 50);
@@ -20,9 +21,13 @@ function TopMissile(props){
 
     const checkFire = () => {
         // if user has selected the space bar
-        if (props.topFireMissile === true){
+        if (props.topMissileFire === true){
             setMoving(true);
-            fireMissile();
+
+            if(moving){
+                setMissileOpacity(1);
+                fireMissile();
+            }
         }
     }
 
@@ -31,7 +36,7 @@ function TopMissile(props){
         props.topFinishFire();
     }
 
-    // activates once user hits space bar
+    // activates when user hits the "f" key
     const fireMissile = () => {
 
         // sets the parent variable that trigger the fire to false

@@ -6,10 +6,9 @@ function BottomShip(props){
     const speed = 150;
 
     const shipBuild = [
-    [90,96], 
-    [98,96], [90,94],
-    [92,94], [94,94], [96,94], [98,94], [92,92], [94,92],
-    [96,92], [94,90]]
+    [90,96], [98,96],
+    [90,94], [92,94], [94,94],
+    [96,94], [98,94], [92,92], [94,92], [96,92], [94,90]]
 
     const shipBuildLeft = [ [0,96], [8,96],
     [0,94], [2,94], [4,94], [6,94], [8,94],
@@ -48,8 +47,8 @@ function BottomShip(props){
         }
     }
 
-    const getBotHeadLoc = (currHeadLoc) => {
-        props.getBotHeadLoc(currHeadLoc);
+    const getBotHeadLoc = (currBotHeadLoc) => {
+        props.getBotHeadLoc(currBotHeadLoc);
     }
 
     const setNewDirection = () => {

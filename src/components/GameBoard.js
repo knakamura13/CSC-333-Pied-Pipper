@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import TopShip from './TopShip'
 import BottomShip from './BottomShip'
-import useKey from '../components/UseKey'
-import TopMissile from '../components/TopMissile'
-import BotMissile from '../components/BotMissile'
+import useKey from './UseKey'
+import TopMissile from './TopMissile'
+import BotMissile from './BotMissile'
 
 function GameBoard(){
 
     const rightPressed = useKey("ArrowRight");
     const leftPressed = useKey("ArrowLeft");
-    const spacePressed = useKey("f");
+    const firePressed = useKey("f");
+
     const [topDirection, setTopDirection] = useState('RIGHT'); 
     const [bottomDirection, setBottomDirection] = useState('LEFT'); 
     const [topMissileFire, setTopMissileFire] = useState(false);
@@ -29,7 +30,7 @@ function GameBoard(){
         else if(leftPressed){
             setTopDirection('LEFT');
         }
-        if (spacePressed){
+        if (firePressed){
             setTopMissileFire(true);
         }
     }
@@ -41,7 +42,7 @@ function GameBoard(){
         else if(leftPressed){
             setBottomDirection('LEFT');
         }
-        if (spacePressed){
+        if (firePressed){
             setBotMissileFire(true);
         }
     }
@@ -57,20 +58,20 @@ function GameBoard(){
         setBotMissileFire(false);
     }
 
-    const getTopHeadLoc = (currHeadLoc) => {
-        setTopHeadLoc(currHeadLoc);
+    const getTopHeadLoc = (currTopHeadLoc) => {
+        setTopHeadLoc(currTopHeadLoc);
     }
 
-    const getBotHeadLoc = (currHeadLoc) => {
-        setBotHeadLoc(currHeadLoc);
+    const getBotHeadLoc = (currBotHeadLoc) => {
+        setBotHeadLoc(currBotHeadLoc);
     }
 
     return(
         <div className = "game-area">
-                <TopShip currDirection={topDirection} getTopHeadLoc={getTopHeadLoc}/>
-                <TopMissile topFireMissile={topMissileFire} topFinishFire={topFinishFire} topHeadLoc={topHeadLoc}/>
                 <BottomShip currDirection={bottomDirection} getBotHeadLoc={getBotHeadLoc}/>
-                <BotMissile botFireMissile={botMissileFire} botFinishFire={botFinishFire} botHeadLoc={botHeadLoc}/>
+                <BotMissile botMissileFire={botMissileFire} botFinishFire={botFinishFire} botHeadLoc={botHeadLoc}/>
+                <TopShip currDirection={topDirection} getTopHeadLoc={getTopHeadLoc}/>
+                <TopMissile topMissileFire={topMissileFire} topFinishFire={topFinishFire} topHeadLoc={topHeadLoc}/>
         </div>
     )
 }
