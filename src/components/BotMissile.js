@@ -9,8 +9,9 @@ function BotMissile(props){
 
 
     useEffect(() => {
+        checkFire();
+
         const interval = setInterval(() => {
-            checkFire();
             moveMissile();
             checkEndFire();
         }, 50);
@@ -20,9 +21,13 @@ function BotMissile(props){
 
     const checkFire = () => {
         // if user has selected the space bar
-        if (props.botFireMissile === true){
+        if (props.botMissileFire === true){
             setMoving(true);
-            fireMissile();
+            
+            if(moving){
+                setMissileOpacity(1);
+                fireMissile();
+            }
         }
     }
 
@@ -31,7 +36,7 @@ function BotMissile(props){
         props.botFinishFire();
     }
 
-    // activates once user hits space bar
+    // activates when user hits the "f" key
     const fireMissile = () => {
 
         // sets the parent variable that trigger the fire to false
@@ -49,7 +54,7 @@ function BotMissile(props){
 
     const checkEndFire = () => {
         if (mLocation[1] < 4){
-            setMissileOpacity(1);
+            setMissileOpacity(0);
             setMLocation([0,0]);
             setMoving(false);
         }
