@@ -21,7 +21,7 @@ function GameBoard(){
     useEffect(() => {
         checkPressTop();
         checkPressBot();
-    });
+    },[rightPressed, leftPressed, firePressed,]);
 
     const checkPressTop = () => {
         if (rightPressed){
