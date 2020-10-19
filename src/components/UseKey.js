@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 
+// function for detecting user keyboard input
 function useKey(key){
 
     var lastEvent;

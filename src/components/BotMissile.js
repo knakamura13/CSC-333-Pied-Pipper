@@ -1,33 +1,42 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 
+
+// React Hook for the missile for the bottom ship
 function BotMissile(props){
 
+    const missileSpeed = 50;
     const [missileOpacity, setMissileOpacity] = useState(0);
     const [mLocation, setMLocation] = useState([50,20]);
     const [moving, setMoving] = useState(false);
 
-
+    // continues to check to see if the user has pressed any keys
     useEffect(() => {
         checkFire();
 
+        // on an interval (defined by missile speed) calls the function to move the missile
+        // and terminate the firing process
         const interval = setInterval(() => {
             moveMissile();
             checkEndFire();
-        }, 50);
+        }, missileSpeed);
         return () => clearInterval(interval);
 
     },);
 
+    // checks to see if the trigger for the missile has been activated
     const checkFire = () => {
-        // if user has selected the space bar
+        // if user has selected the "f" key
         if (props.botMissileFire === true){
+
+            // sets the missile's status to "moving"
             setMoving(true);
-            
-            if(moving){
-                setMissileOpacity(1);
-                fireMissile();
-            }
+
+            // makes the missile visible
+            setMissileOpacity(1);
+
+            // calls the function to fire missile
+            fireMissile();
         }
     }
 
@@ -36,7 +45,7 @@ function BotMissile(props){
         props.botFinishFire();
     }
 
-    // activates when user hits the "f" key
+    // in a sequence of functions activated when user hits the "f" key
     const fireMissile = () => {
 
         // sets the parent variable that trigger the fire to false
@@ -47,19 +56,21 @@ function BotMissile(props){
 
         // sets the missile location to the current head of the ship
         setMLocation(initialLoc);
-
-        // makes the missile visible to the user
-        setMissileOpacity(1);
     }
 
+    // checks the condition for ending fire
     const checkEndFire = () => {
+        
+        // if the missile has reached the end of the gameboard
         if (mLocation[1] < 4){
+            // set missile invisible, set moving to false
             setMissileOpacity(0);
             setMLocation([0,0]);
             setMoving(false);
         }
     }
 
+    // changes the position of the missile if "moving" is true
     const moveMissile = () => {
         if (moving){
             let location = {...mLocation}
@@ -68,6 +79,7 @@ function BotMissile(props){
         }
     }
 
+    // returns the missile component to the component that calls it
     return(
         <div>
             {mLocation.map((dot, i)=>{const style = {
