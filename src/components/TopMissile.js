@@ -1,24 +1,31 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 
+// Top missile
 function TopMissile(props){
 
+    // note that smaller values are faster
+    const missileSpeed = 50;
+
+    // states for the top missile
     const [missileOpacity, setMissileOpacity] = useState(0);
     const [mLocation, setMLocation] = useState([50,20]);
     const [moving, setMoving] = useState(false);
 
-
+    // continues to check to see if the user has hit the "f" key
     useEffect(() => {
         checkFire();
         
+        // moves the missile at an interval defined by the speed
         const interval = setInterval(() => {
             moveMissile();
             checkEndFire();
-        }, 50);
+        }, missileSpeed);
         return () => clearInterval(interval);
 
     },);
 
+    // when user selects the "f" key, sets missile visible and begins movement
     const checkFire = () => {
         // if user has selected the space bar
         if (props.topMissileFire === true){
@@ -52,7 +59,10 @@ function TopMissile(props){
         setMissileOpacity(1);
     }
 
+    // checks conditions for ending the firing trigger
     const checkEndFire = () => {
+
+        // if missile is out of range of the gameboard, firing complete
         if (mLocation[1] > 96){
             setMissileOpacity(0);
             setMLocation([0,0]);
@@ -60,6 +70,7 @@ function TopMissile(props){
         }
     }
 
+    // if movement is active, moves the missile downward at the set interval
     const moveMissile = () => {
         if (moving){
             let location = {...mLocation}
@@ -68,6 +79,7 @@ function TopMissile(props){
         }
     }
 
+    // returns the missile component to the calling component
     return(
         <div>
             {mLocation.map((dot, i)=>{const style = {
