@@ -1,49 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import TopShip from './TopShip'
 import BottomShip from './BottomShip'
 import useKey from './UseKey'
 import TopMissile from './TopMissile'
 import BotMissile from './BotMissile'
 
-function GameBoard(){
-
+function GameBoard() {
     // returns true if the user is pressing a key (left arrow, right arrow, "f", etc.)
     const rightPressed = useKey("ArrowRight");
     const leftPressed = useKey("ArrowLeft");
     const firePressed = useKey("f");
 
     // state changes for the top ship/missile
-    const [topDirection, setTopDirection] = useState('RIGHT'); 
+    const [topDirection, setTopDirection] = useState('RIGHT');
     const [topMissileFire, setTopMissileFire] = useState(false);
-    const [topHeadLoc, setTopHeadLoc] = useState([0,0]);
+    const [topHeadLoc, setTopHeadLoc] = useState([0, 0]);
 
     // state changes for the bottom ship/missile
-    const [bottomDirection, setBottomDirection] = useState('LEFT'); 
+    const [bottomDirection, setBottomDirection] = useState('LEFT');
     const [botMissileFire, setBotMissileFire] = useState(false);
-    const [botHeadLoc, setBotHeadLoc] = useState([0,0]);
+    const [botHeadLoc, setBotHeadLoc] = useState([0, 0]);
 
     // when the user presses a key, checks the key they pressed and performs actions
     useEffect(() => {
         checkPressTop();
         checkPressBot();
-    },[rightPressed, leftPressed, firePressed,]);
+    }, [rightPressed, leftPressed, firePressed]);
 
     // initiates triggers for firing or movement
     const checkPressTop = () => {
-        if (rightPressed){
+        if (rightPressed) {
             setTopDirection('RIGHT');
-        }
-        else if(leftPressed){
+        } else if (leftPressed) {
             setTopDirection('LEFT');
         }
-        if (firePressed){
+        if (firePressed) {
             setTopMissileFire(true);
         }
     }
 
-    
-     // sets the top missile fire to false and ends the trigger
-     const topFinishFire = () => {
+    // sets the top missile fire to false and ends the trigger
+    const topFinishFire = () => {
         setTopMissileFire(false);
     }
 
@@ -54,13 +51,12 @@ function GameBoard(){
 
     // initiates triggers for firing or movement
     const checkPressBot = () => {
-        if (rightPressed){
+        if (rightPressed) {
             setBottomDirection('RIGHT');
-        }
-        else if(leftPressed){
+        } else if (leftPressed) {
             setBottomDirection('LEFT');
         }
-        if (firePressed){
+        if (firePressed) {
             setBotMissileFire(true);
         }
     }
@@ -76,12 +72,12 @@ function GameBoard(){
     }
 
     // returns the game area to the calling component
-    return(
-        <div className = "game-area">
-                <BottomShip currDirection={bottomDirection} getBotHeadLoc={getBotHeadLoc}/>
-                <BotMissile botMissileFire={botMissileFire} botFinishFire={botFinishFire} botHeadLoc={botHeadLoc}/>
-                <TopShip currDirection={topDirection} getTopHeadLoc={getTopHeadLoc}/>
-                <TopMissile topMissileFire={topMissileFire} topFinishFire={topFinishFire} topHeadLoc={topHeadLoc}/>
+    return (
+        <div className="game-area">
+            <BottomShip currDirection={bottomDirection} getBotHeadLoc={getBotHeadLoc}/>
+            <BotMissile botMissileFire={botMissileFire} botFinishFire={botFinishFire} botHeadLoc={botHeadLoc}/>
+            <TopShip currDirection={topDirection} getTopHeadLoc={getTopHeadLoc}/>
+            <TopMissile topMissileFire={topMissileFire} topFinishFire={topFinishFire} topHeadLoc={topHeadLoc}/>
         </div>
     )
 }

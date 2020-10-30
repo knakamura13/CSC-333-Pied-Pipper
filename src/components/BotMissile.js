@@ -1,33 +1,33 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react'
-
+import React, {useEffect, useState} from 'react'
 
 // React Hook for the missile for the bottom ship
-function BotMissile(props){
-
+function BotMissile(props) {
+    // note that smaller values are faster
     const missileSpeed = 50;
+
+    // states for the bottom missile
     const [missileOpacity, setMissileOpacity] = useState(0);
-    const [mLocation, setMLocation] = useState([50,20]);
+    const [mLocation, setMLocation] = useState([50, 20]);
     const [moving, setMoving] = useState(false);
 
     // continues to check to see if the user has pressed any keys
     useEffect(() => {
         checkFire();
 
-        // on an interval (defined by missile speed) calls the function to move the missile
-        // and terminate the firing process
+        // moves the missile at an interval defined by the speed
+        // and terminates the firing process
         const interval = setInterval(() => {
             moveMissile();
             checkEndFire();
         }, missileSpeed);
+
         return () => clearInterval(interval);
+    });
 
-    },);
-
-    // checks to see if the trigger for the missile has been activated
+    // when user selects the "f" key, sets missile visible and begins movement
     const checkFire = () => {
         // if user has selected the "f" key
-        if (props.botMissileFire === true){
+        if (props.botMissileFire === true) {
 
             // sets the missile's status to "moving"
             setMoving(true);
@@ -49,7 +49,7 @@ function BotMissile(props){
     const fireMissile = () => {
 
         // sets the parent variable that trigger the fire to false
-        botFinishFire(); 
+        botFinishFire();
 
         // sets initialLoc to the coordinates of the ship's head
         let initialLoc = [props.botHeadLoc[0], props.botHeadLoc[1] + 2]
@@ -60,35 +60,36 @@ function BotMissile(props){
 
     // checks the condition for ending fire
     const checkEndFire = () => {
-        
+
         // if the missile has reached the end of the gameboard
-        if (mLocation[1] < 4){
+        if (mLocation[1] < 4) {
             // set missile invisible, set moving to false
             setMissileOpacity(0);
-            setMLocation([0,0]);
+            setMLocation([0, 0]);
             setMoving(false);
         }
     }
 
     // changes the position of the missile if "moving" is true
     const moveMissile = () => {
-        if (moving){
+        if (moving) {
             let location = {...mLocation}
-            location = [location[0], location[1]-2]
+            location = [location[0], location[1] - 2]
             setMLocation(location);
         }
     }
 
     // returns the missile component to the component that calls it
-    return(
+    return (
         <div>
-            {mLocation.map((dot, i)=>{const style = {
-            opacity: `${missileOpacity}`,
-            left: `${mLocation[0]}%`,
-            top: `${mLocation[1]}%`
-        }
-        return (<div className="missile" key={i} style={style}></div>)
-        })}  
+            {mLocation.map((dot, i) => {
+                const style = {
+                    opacity: `${missileOpacity}`,
+                    left: `${mLocation[0]}%`,
+                    top: `${mLocation[1]}%`
+                }
+                return (<div className="missile" key={i} style={style}></div>)
+            })}
         </div>
     )
 }

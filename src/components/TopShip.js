@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 
 // Top Ship component
-function TopShip(props){
-
+function TopShip(props) {
     const speed = 150;
 
     // Ship build for the initial state (top left)
-    const shipBuild = [ [0,2], [8,2],
-    [0,4], [2,4], [4,4], [6,4], [8,4],
-    [2,6], [4,6], [6,6],
-    // head is index 10
-    [4,8]]
+    const shipBuild = [[0, 2], [8, 2],
+        [0, 4], [2, 4], [4, 4], [6, 4], [8, 4],
+        [2, 6], [4, 6], [6, 6],
+        // head is index 10
+        [4, 8]]
 
     // Ship build for the top right position 
-    const shipBuildRight = [ [90,2], [98,2],
-    [90,4], [92,4], [94,4], [96,4], [98,4],
-    [92,6], [94,6], [96,6],
-    // head is index 10
-    [94,8]]
+    const shipBuildRight = [[90, 2], [98, 2],
+        [90, 4], [92, 4], [94, 4], [96, 4], [98, 4],
+        [92, 6], [94, 6], [96, 6],
+        // head is index 10
+        [94, 8]]
 
     // component state variables
     const [shipLoc, setShipLoc] = useState(shipBuild);
@@ -41,16 +39,14 @@ function TopShip(props){
     // checks to ensure the ship stays inside the game play area
     const checkBounds = () => {
         if (shipLoc[0][0] <= 4) {
-            setActive(false);    
+            setActive(false);
             setStuckLoc('LEFT');
             setDirection('STUCKLEFT');
-        }
-        else if(shipLoc[1][0] >= 94){
-            setActive(false);    
+        } else if (shipLoc[1][0] >= 94) {
+            setActive(false);
             setStuckLoc('RIGHT');
             setDirection('STUCKRIGHT');
-        }
-        else{
+        } else {
             setActive(true);
             setStuckLoc('INIT');
         }
@@ -65,27 +61,26 @@ function TopShip(props){
     const setNewDirection = () => {
         if (active) {
             setDirection(props.currDirection);
-        }
-        else if (props.currDirection !== stuckLocation){
+        } else if (props.currDirection !== stuckLocation) {
             setActive(true);
         }
     }
 
     // changes the location coordinates of the ship to the right
-    const shiftRight = ([x,y]) => {
-        return([x+2, y]);
+    const shiftRight = ([x, y]) => {
+        return ([x + 2, y]);
     }
 
     // changes the location coordinates of the ship to the left
-    const shiftLeft = ([x,y]) => {
-        return([x-2, y]);
+    const shiftLeft = ([x, y]) => {
+        return ([x - 2, y]);
     }
 
     // waits for user input and moves the ship in the designated direction
     const moveShip = () => {
         let location;
 
-        switch (shipDirection){
+        switch (shipDirection) {
             case 'RIGHT':
                 location = shipLoc.map(shiftRight)
                 break;
@@ -99,7 +94,7 @@ function TopShip(props){
                 location = shipBuildRight;
                 break;
         }
-        
+
         // sets the ship location to the new coordinates
         setShipLoc(location);
 
@@ -110,21 +105,20 @@ function TopShip(props){
         checkBounds();
     }
 
-
     // returns the ship build to the parent component
-    return(
-    <div>
-        {shipLoc.map((dot, i)=>{
-            const style = {
-                left: `${dot[0]}%`,
-                top: `${dot[1]}%`
-            }
+    return (
+        <div>
+            {shipLoc.map((dot, i) => {
+                const style = {
+                    left: `${dot[0]}%`,
+                    top: `${dot[1]}%`
+                }
 
-            return(
-                <div className="pixel" key={i} style={style}></div>
-            )
-        })}
-    </div>
+                return (
+                    <div className="pixel" key={i} style={style}></div>
+                )
+            })}
+        </div>
     )
 }
 
