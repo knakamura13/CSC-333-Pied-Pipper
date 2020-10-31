@@ -33,8 +33,7 @@ function TopShip(props) {
             moveShip();
         }, speed);
         return () => clearInterval(interval);
-
-    },);
+    }, [shipLoc, shipDirection, active, stuckLocation]);
 
     // checks to ensure the ship stays inside the game play area
     const checkBounds = () => {
